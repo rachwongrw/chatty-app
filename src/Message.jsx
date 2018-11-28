@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Message extends Component {
   render() {
     const messages = this.props.messages;
-    console.log('messages', messages);
+    console.log('messages from Message.jsx', messages);
     const messageItems = messages.map((user) =>
       <div className='message' key={user.id}>
         <span className='message-username'>{user.username}</span>
