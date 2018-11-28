@@ -25,7 +25,7 @@ class App extends Component {
   }
   addChatMsg(message) {
     let messageItem = {
-      id: 4,
+      id: (this.state.messages.length + 1),
       username: 'Bob',
       content: message
     };
@@ -48,7 +48,7 @@ class App extends Component {
       <div>
         <NavBar />
         <MessageList messages = {this.state.messages}/>
-        <ChatBar user = {this.state} addChatMsg = {this.addChatMsg} /> {/* passing a prop to a child element. This.state... creates an object in the variable named user */}
+        <ChatBar user = {this.state} addChatMsg = {this.addChatMsg} />
       </div>
     );
   }
