@@ -21,7 +21,19 @@ class App extends Component {
         }
       ]
     }
+    this.addChatMsg = this.addChatMsg.bind(this);
   }
+  addChatMsg(message) {
+    let messageItem = {
+      id: 4,
+      username: 'Bob',
+      content: message
+    };
+    const oldMessageItems = this.state.messages;
+    const newMessageItems = [...oldMessageItems, messageItem];
+    this.setState({messages: newMessageItems});
+  }
+
   componentDidMount() {
     console.log('componentDidMount <App />');
     setTimeout(() => {
@@ -36,7 +48,7 @@ class App extends Component {
       <div>
         <NavBar />
         <MessageList messages = {this.state.messages}/>
-        <ChatBar currentUser = {this.state.currentUser.name} /> {/* passing a prop to a child element */}
+        <ChatBar user = {this.state} addChatMsg = {this.addChatMsg} /> {/* passing a prop to a child element. This.state... creates an object in the variable named user */}
       </div>
     );
   }
