@@ -33,6 +33,11 @@ class App extends Component {
       console.log('WebSocket Error: ' + error);
     };
 
+    this.socket.onmessage = function(event) {
+      let message = JSON.parse(event.data);
+      console.log('Incoming Message:', message.content);
+    }
+
     setTimeout(() => {
       console.log('Simulating incoming message');
       const newMessage = {id: 3, username: 'Michelle', content: 'Hello there!'};

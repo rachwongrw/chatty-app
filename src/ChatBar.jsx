@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import UUID from '../../chatty_server/node_modules/uuid';
 
 class ChatBar extends Component {
   _handleKeyPress = event => {
     if (event.key === 'Enter') {
       let message = {
-        id: UUID(),
+        id: '',
         username: this.props.user.currentUser.name, // good ol' Bob
         content: event.target.value
       };
       this.props.addChatMsg(message); // send message to addChatMsg (in App.jsx)
-      console.log('Incoming Message:', message);
       event.target.value = ''; // clear input once posted
     }
   }
