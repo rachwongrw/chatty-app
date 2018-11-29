@@ -35,20 +35,20 @@ wss.on('connection', (ws) => {
   // Have server display message in Terminal
   ws.on('message', function incoming(_data) {
     const data = JSON.parse(_data); // need to change this to an object (used stringify on data in App.jsx. cant access variables as listed below if string)
-    console.log('what is the data?', data);
+    // console.log('what is the data?', data);
     data.id = UUID();
     var username = data.username;
     var content = data.content;
     console.log(`User ${username} said ${content}`);
-    console.log('what is the data now?', data);
+    // console.log('what is the data now?', data);
 
-    console.log('what is SocketServer.OPEN even?????????', WebSocket.OPEN);
+    // console.log('what is SocketServer.OPEN even?????????', WebSocket.OPEN);
 
     clients.forEach(client => {
-      console.log('is code even reaching here?');
+      // console.log('is code even reaching here?');
       if (client.readyState === WebSocket.OPEN) {
         client.send(JSON.stringify(data));
-        console.log('what about here');
+        // console.log('what about here');
       }
     });
   });

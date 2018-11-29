@@ -32,11 +32,17 @@ class App extends Component {
     this.socket.onerror = function(error) {
       console.log('WebSocket Error: ' + error);
     };
+    
+    // const that = this; // to help access the this.setState function inside another function
 
     this.socket.onmessage = function(event) {
       let message = JSON.parse(event.data);
       console.log('Incoming Message:', message.content);
-    }
+      // const _msgs = this.state.messages.concat([message]);
+      const _msgs = [...this.state.messages,message];
+      this.setState({messages: _msgs});
+      console.log('what is the state of msgs now:', this.state.messages);
+    }.bind(this); // helps to refer to 'this' inside another function and not refer to the inner 'this'
 
     setTimeout(() => {
       console.log('Simulating incoming message');
@@ -45,6 +51,7 @@ class App extends Component {
       this.setState({messages: messages})
     }, 3000);
   }
+
   render() {
     return (
       <div>
