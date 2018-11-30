@@ -29,30 +29,3 @@ class Message extends Component {
 
 
 export default Message;
-
-/* 
-
-class Message extends Component {
-  
-  // const messageNotification = 
-  render() {
-    const messages = this.props.messages;
-    console.log('messages from Message.jsx', messages);
-    const messageItems = messages.map((user) =>
-      <div className='message' key={user.id}>
-        <span className='message-username'>{user.username}</span>
-        <span className='message-content'>{user.content}</span>
-      </div>
-    );
-  return (   
-    <div>
-      {messageItems}
-      <div className='notification'>
-        <span className='notification-content message system'>Anonymous1 changed their name to nomnom.</span>
-      </div>
-    </div>
-    );
-  }
-}
-
-*/

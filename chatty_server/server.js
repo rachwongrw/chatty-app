@@ -35,8 +35,8 @@ wss.on('connection', (ws) => {
   broadcast(usersOnline);
 
   ws.on('message', function incoming(_data) {
-    const data = JSON.parse(_data); // need to change this to an object (used stringify on data in App.jsx. cant access variables as listed below if string)
-    console.log('what is the data?', data);
+    const data = JSON.parse(_data); 
+    // console.log('what is the data?', data);
     const {type, name, content} = data;
     const assignID = {type, id: uuidv4(), name, content}
 

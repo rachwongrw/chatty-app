@@ -11,8 +11,6 @@ class ChatBar extends Component {
   }
   render() {
     const updateName = (event) => {
-      console.log('what is this name event? - updatename', event.target.value);
-      console.log('what is THIS referring to - for name for updatename?', this.state.name);
       const oldUser = this.state.name;
       const newUser = event.target.value;
       if (oldUser !== newUser) {
@@ -23,17 +21,15 @@ class ChatBar extends Component {
 
     const _handleKeyPress = (event) => {
       if (event.key === 'Enter') {
-        console.log('what is this mesg event?', event.target.value);
-        console.log('what is THIS referring to - for name?', this.state.name);
         const user = this.state.name;
         const message = event.target.value;
-        this.props.addChatMsg(user, message); // send message to addChatMsg (in App.jsx)
-        event.target.value = ''; // clear input once posted
+        this.props.addChatMsg(user, message);
+        event.target.value = '';
       }
     }
     return (   
       <footer className='chatbar'>
-        <input className='chatbar-username' type= 'text' placeholder={this.props.currentUser.name} name='name' /*onChange={this.handleNameChange}*/ onBlur={updateName}/>
+        <input className='chatbar-username' type= 'text' placeholder={this.props.currentUser.name} name='name' onBlur={updateName}/>
         <input className='chatbar-message' type= 'text' placeholder='Type a message and hit ENTER' defaultValue='' name='messages' onKeyPress= {_handleKeyPress }/>
       </footer>
     )
@@ -41,11 +37,3 @@ class ChatBar extends Component {
 }
 
 export default ChatBar;
-
-
-/* 
-
-defaultValues are needed in the input field. This will hold the value until it gets changed. for the name, we've set it to props.username.
-handleKeyPress is for when we want to send the message provided in the input to the server along with the 'set' username. 
-
-*/
