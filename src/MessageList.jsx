@@ -6,7 +6,11 @@ class MessageList extends Component {
   return (   
     <div>
       <main className='messages'>
-         <Message messages = {this.props.messages}/>
+        {
+          this.props.messages.map((eachMessage, index) => {
+            return <Message messageFromList = {eachMessage} type = {eachMessage.type} key={index}/>
+          })
+        }
       </main>
     </div>
     );

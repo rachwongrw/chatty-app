@@ -1,7 +1,8 @@
+/* eslint-disable no-console */
 const express = require('express');
 const WebSocket = require('ws');
 const SocketServer = WebSocket.Server;
-const UUID = require('../chatty_server/node_modules/uuid')
+const uuidv4 = require('../chatty_server/node_modules/uuid/v4');
 
 // Set the port to 3001
 const PORT = 3001;
@@ -35,19 +36,31 @@ wss.on('connection', (ws) => {
   // Have server display message in Terminal
   ws.on('message', function incoming(_data) {
     const data = JSON.parse(_data); // need to change this to an object (used stringify on data in App.jsx. cant access variables as listed below if string)
-    // console.log('what is the data?', data);
-    data.id = UUID();
-    var username = data.username;
-    var content = data.content;
-    console.log(`User ${username} said ${content}`);
-    // console.log('what is the data now?', data);
+    console.log('what is the data?', data);
+    const {type, name, content} = data;
+    // console.log(name,content);
+    const assignID = {type, id: uuidv4(), name, content}
+
+    switch(assignID.type) {
+      case ('postMessage'):
+        assignID.type = 'incomingMessage';
+        console.log (`${name} said ${content}`);
+        break;
+      case ('postNotification'):
+        assignID.type = 'incomingNotification';
+        console.log (content);
+        break;
+      default:
+        console.log('Unknown event type (from server.js) ' + assignID.type);
+    }
+    console.log('what is the data now?', assignID);
 
     // console.log('what is SocketServer.OPEN even?????????', WebSocket.OPEN);
 
     clients.forEach(client => {
       // console.log('is code even reaching here?');
       if (client.readyState === WebSocket.OPEN) {
-        client.send(JSON.stringify(data));
+        client.send(JSON.stringify(assignID));
         // console.log('what about here');
       }
     });
