@@ -4,7 +4,7 @@ Chatty App Project
 Chatty App is a real time web application predominantly built wth React. Other popular tools used: Babel, WebPacket, SASS.
 
 ## Final Product
-!["Chatty home page"](https://github.com/rachwongrw/chatty-app/blob/master/Chatty%20home%20page.png)
+!["Chatty home page"](https://github.com/rachwongrw/chatty-app/blob/master/Chatty%20home%20page-final.png)
 
 ## Getting Started 
 
