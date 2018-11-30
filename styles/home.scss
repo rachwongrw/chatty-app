@@ -1,3 +1,6 @@
+$main-colour: #d1f442;
+$outline: #b3d138;
+
 body {
   background: white;
   color: black;
@@ -7,8 +10,8 @@ body {
 }
 
 .chatbar {
-  background: tomato;
-  border-top: 1px solid black;
+  background: $main-colour;
+  border-top: 1px solid $outline;
   bottom: 0;
   display: flex;
   left: 0;
@@ -19,7 +22,7 @@ body {
 
 .chatbar-message,
 .chatbar-username {
-  border: 1px solid black;
+  border: 1px solid $outline;
   display: block;
   height: 40px;
   line-height: 40px;
@@ -62,8 +65,8 @@ body {
 }
 
 .navbar {
-  background: tomato;
-  border-bottom: 1px solid black;
+  background: $main-colour;
+  border-bottom: 1px solid $outline;
   height: 60px;
   left: 0;
   padding: 0 10px;
@@ -78,6 +81,18 @@ body {
   float: left;
   font-weight: 700;
   font-size: 28px;
+  height: 60px;
+  line-height: 60px;
+  padding: 0 10px;
+  text-decoration: none;
+}
+
+.users {
+  color: inherit;
+  display: block;
+  float: right;
+  font-weight: 400;
+  font-size: 1em;
   height: 60px;
   line-height: 60px;
   padding: 0 10px;
