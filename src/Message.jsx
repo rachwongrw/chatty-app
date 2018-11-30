@@ -62,7 +62,7 @@ class Message extends Component {
     // );
   return (   
     <div>
-      {messageItems}
+      {this.props.messageFromList}
     </div>
     );
   }

@@ -31,14 +31,13 @@ const clients = [];
 
 wss.on('connection', (ws) => {
   console.log('Client connected');
-  clients.push(ws);
-
+  // clients.push(ws);
+  // console.log(wss.clients.size);
   // Have server display message in Terminal
   ws.on('message', function incoming(_data) {
     const data = JSON.parse(_data); // need to change this to an object (used stringify on data in App.jsx. cant access variables as listed below if string)
     console.log('what is the data?', data);
     const {type, name, content} = data;
-    // console.log(name,content);
     const assignID = {type, id: uuidv4(), name, content}
 
     switch(assignID.type) {
@@ -55,13 +54,9 @@ wss.on('connection', (ws) => {
     }
     console.log('what is the data now?', assignID);
 
-    // console.log('what is SocketServer.OPEN even?????????', WebSocket.OPEN);
-
-    clients.forEach(client => {
-      // console.log('is code even reaching here?');
+    wss.clients.forEach(client => { // wss- websocket server which is different ws. wss.client... will automatically add clients to the clients array. this affected mgs being rendered to the page
       if (client.readyState === WebSocket.OPEN) {
         client.send(JSON.stringify(assignID));
-        // console.log('what about here');
       }
     });
   });
