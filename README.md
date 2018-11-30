@@ -1,7 +1,7 @@
 Chatty App Project
 =====================
 
-Chatty App is a real time web application predominantly built wth React. Other popular tools used: Babel, WebPacket, SASS.
+Chatty App is a real time web application, similar to Slack, allowing multiple users to connect and speak with other users. This is predominantly built in React. Other popular tools used: Babel, WebPacket, SASS.
 
 ## Final Product
 !["Chatty home page"](https://github.com/rachwongrw/chatty-app/blob/master/Chatty%20home%20page-final.png)
