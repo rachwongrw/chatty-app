@@ -16,9 +16,24 @@ const server = express()
 // Create the WebSockets server
 const wss = new SocketServer({ server });
 
+function broadcast(allData) {
+  wss.clients.forEach(client => { // wss- websocket server which is different ws. wss.client... will automatically add clients to the clients array. this affected mgs being rendered to the page
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(JSON.stringify(allData));
+    }
+  });
+}
 
 wss.on('connection', (ws) => {
   console.log('Client connected');
+  console.log('How many users are live:', wss.clients.size);
+
+  let usersOnline = {
+    type: 'ClientInfo',
+    content: `${wss.clients.size}`
+  }
+  broadcast(usersOnline);
+
   ws.on('message', function incoming(_data) {
     const data = JSON.parse(_data); // need to change this to an object (used stringify on data in App.jsx. cant access variables as listed below if string)
     console.log('what is the data?', data);
@@ -39,14 +54,9 @@ wss.on('connection', (ws) => {
     }
     console.log('what is the data now?', assignID);
 
-    wss.clients.forEach(client => { // wss- websocket server which is different ws. wss.client... will automatically add clients to the clients array. this affected mgs being rendered to the page
-      if (client.readyState === WebSocket.OPEN) {
-        client.send(JSON.stringify(assignID));
-      }
-    });
+    broadcast(assignID);
   });
   
- 
   // Set up a callback for when a client closes the socket. This usually means they closed their browser.
   ws.on('close', () => console.log('Client disconnected'));
 });

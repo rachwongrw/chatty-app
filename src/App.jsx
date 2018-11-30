@@ -5,17 +5,18 @@ import ChatBar from './ChatBar.jsx';
 import MessageList from './MessageList.jsx';
 
 
-
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       currentUser: {name: 'Anonymous'},
-      messages: []
+      messages: [],
+      online: 0
     }
     this.addChatMsg = this.addChatMsg.bind(this);
     this.addNameChange = this.addNameChange.bind(this);
   }
+  
   addChatMsg(user, message) {
     let messageItem = {
       type: 'postMessage',
@@ -33,6 +34,7 @@ class App extends Component {
       name: oldUser,
       content: `${oldUser} has changed their name to ${newUser}`
     }
+    // Sending the message to the server (to see on client side console)
     this.socket.send(JSON.stringify(notificationItem));
   }
 
@@ -56,16 +58,25 @@ class App extends Component {
       let message = JSON.parse(event.data);
       console.log('what is the whole message (from App.jsx):', message);
       console.log('Incoming Message (from App.jsx):', message.content);
+      /* 
+      1.filter if the content type is Clientinfo if so, then update state and current number of users is current number of users from the server
+      if not... everything below 
+      2. now that we hold users online, send data down to navbar 
+      */
+     if (message.type === 'ClientInfo') {
+       this.setState({online: Number(message.content)})
+     } else {
       const _msgs = [...this.state.messages, message];
       this.setState({messages: _msgs});
       console.log('what is the state of msgs now (from App.jsx):', this.state.messages);
+     }
     }.bind(this); // helps to refer to 'this' inside another function and not refer to the inner 'this'
   }
 
   render() {
     return (
       <div>
-        <NavBar />
+        <NavBar numberOfUsers = {this.state.online}/>
         <MessageList messages = {this.state.messages}/>
         <ChatBar currentUser = {this.state.currentUser} addChatMsg={this.addChatMsg} addNameChange={this.addNameChange} />
       </div>
